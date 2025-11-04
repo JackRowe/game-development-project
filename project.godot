@@ -11,5 +11,15 @@ config_version=5
 [application]
 
 config/name="Game Development Project"
+run/main_scene="uid://samwpjnqbsnp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1440
+window/size/viewport_height=810
+
+[physics]
+
+common/physics_interpolation=true

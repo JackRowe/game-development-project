@@ -1,5 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjkyesjlweh5t"]
+[gd_scene load_steps=3 format=3 uid="uid://bjkyesjlweh5t"]
 
 [ext_resource type="PackedScene" uid="uid://l2m7h3mij27r" path="res://assets/plane/oVWwge.fbx" id="1_fsw8o"]
+[ext_resource type="Script" uid="uid://s1enb1pxxlep" path="res://scripts/visuals.gd" id="2_dcinn"]
 
 [node name="Cessna172" instance=ExtResource("1_fsw8o")]
+script = ExtResource("2_dcinn")
