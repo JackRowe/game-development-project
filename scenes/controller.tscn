@@ -1,39 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://jm200m3uf71g"]
+[gd_scene load_steps=8 format=3 uid="uid://jm200m3uf71g"]
 
 [ext_resource type="PackedScene" uid="uid://bjkyesjlweh5t" path="res://scenes/cessna_172.tscn" id="1_60fnl"]
+[ext_resource type="PhysicsMaterial" uid="uid://baftfxcyjnabh" path="res://assets/wheel.tres" id="1_eq701"]
+[ext_resource type="Script" uid="uid://swlv1ca4iv2l" path="res://scripts/controls.gd" id="2_um401"]
+[ext_resource type="Script" uid="uid://bd6srurugcj8m" path="res://scripts/simulation.gd" id="3_a3fk4"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_60fnl"]
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_um401"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_60fnl"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_a3fk4"]
 
-[node name="Controller" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a3fk4"]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="Controller" type="RigidBody3D"]
+physics_material_override = ExtResource("1_eq701")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.5, 0.5)
+inertia = Vector3(0, 0.5, 0.5)
+can_sleep = false
+continuous_cd = true
+linear_damp = 0.05
+angular_damp = 0.05
+script = ExtResource("2_um401")
 
-[node name="Cessna172" parent="RigidBody3D" instance=ExtResource("1_60fnl")]
+[node name="Physics" type="Node" parent="."]
+script = ExtResource("3_a3fk4")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="RigidBody3D/Cessna172"]
-transform = Transform3D(-1, -1.5180806e-08, 8.609462e-08, 0, 0.9848077, 0.17364818, -8.742278e-08, 0.17364818, -0.9848077, 0, 1.1810818, 0)
-spring_length = 3.0
+[node name="Visuals" parent="." instance=ExtResource("1_60fnl")]
 
-[node name="Camera3D" type="Camera3D" parent="RigidBody3D/Cessna172/SpringArm3D"]
+[node name="SpringArm3D" type="SpringArm3D" parent="Visuals"]
+transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 0.9999999, 0, 8.742277e-08, 0, -0.99999994, 0, 1, 0)
+shape = SubResource("SeparationRayShape3D_um401")
+spring_length = 2.0
 
-[node name="Front" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(-4.371139e-09, -0.1, 0, 0.1, -4.371139e-09, 0, 0, 0, 0.1, 0, 0.055, 1.004007)
-shape = SubResource("SphereShape3D_60fnl")
+[node name="Camera3D" type="Camera3D" parent="Visuals/SpringArm3D"]
 
-[node name="Body" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(-1.6757214e-08, -0.3911815, 0, 0.38336042, -1.7099087e-08, 0, 0, 0, 2.4559317, 0, 0.4, 0.1)
-shape = SubResource("BoxShape3D_60fnl")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-8.742278e-09, -0.2, 0, 0.2, -8.742278e-09, 0, 0, 0, 0.2, 0, 0.1, 1.0014327)
+shape = SubResource("CylinderShape3D_a3fk4")
 
-[node name="Wings" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(-3.4858523e-09, -3.7285714, 0, 0.07974701, -1.6298102e-07, 0, 0, 0, 0.6238897, 0, 0.65, 0.4)
-shape = SubResource("BoxShape3D_60fnl")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-8.742278e-09, -0.2, 0, 0.2, -8.742278e-09, 0, 0, 0, 0.2, 0.42347383, 0.1, 0.41997987)
+shape = SubResource("CylinderShape3D_a3fk4")
 
-[node name="Left" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(-4.371139e-09, -0.1, 0, 0.1, -4.371139e-09, 0, 0, 0, 0.1, 0.42355704, 0.055, 0.4192077)
-shape = SubResource("SphereShape3D_60fnl")
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-8.742278e-09, -0.2, 0, 0.2, -8.742278e-09, 0, 0, 0, 0.2, -0.42347383, 0.1, 0.41997987)
+shape = SubResource("CylinderShape3D_a3fk4")
 
-[node name="Right" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(-4.371139e-09, -0.1, 0, 0.1, -4.371139e-09, 0, 0, 0, 0.1, -0.424, 0.055, 0.419)
-shape = SubResource("SphereShape3D_60fnl")
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_a3fk4")
