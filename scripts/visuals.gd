@@ -26,8 +26,8 @@ func animateAilerons(_delta: float) -> void:
 	var leftIdlePose: Transform3D = skeleton.get_bone_rest(aileronLeftBone)
 	var rightIdlePose: Transform3D = skeleton.get_bone_rest(aileronRightBone)
 	
-	var angleLeft = Physics.GetControlSurfaceAngle("Aileron", parent.rollValue, true)
-	var angleRight = -angleLeft
+	var angleLeft = Physics.GetControlSurfaceAngle("LeftAileron", -parent.rollValue, true)
+	var angleRight = Physics.GetControlSurfaceAngle("RightAileron", parent.rollValue, true)
 	
 	var rotationLeft = Basis.from_euler(Vector3(angleLeft, 0, 0))
 	var rotationRight = Basis.from_euler(Vector3(angleRight, 0, 0))

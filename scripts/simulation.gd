@@ -2,19 +2,22 @@ extends Node
 
 @onready var controller: RigidBody3D = get_parent()
 
-func calculateThrust() -> Vector3:
+func applyThrust() -> void:
 	var forward = controller.global_transform.basis.z
 	var scaledThrust = controller.thrustValue / 100.0
 	# maybe reduce efficiency with speed
 	var force = scaledThrust * Physics.GetMaxThrust()
-	return forward * force
+	controller.apply_central_force(forward * force)
 
-func calculateSurfaceLift() -> Vector3:
-	return Vector3.ZERO
+# lift = 0.5 * airDensity * velocityRelativeToAir ^ 2 * area * coefficientOfLift
+func applyLift() -> void:
+	pass
 
-func calculateLift() -> Vector3:
-	return Vector3.ZERO
+# force = 0.5 * airDensity * velocityRelativeToAir ^ 2 * coefficient
+func applyDrag() -> void:
+	pass
 
-func _physics_process(delta: float) -> void:
-	var thrust: Vector3 = calculateThrust()
-	controller.apply_central_force(thrust)
+func _physics_process(_delta: float) -> void:
+	applyThrust()
+	applyLift()
+	applyDrag()
