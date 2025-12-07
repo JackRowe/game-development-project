@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsfgplu3gofbd"
-path="res://.godot/imported/oVWwge_9.png-306e90e88883c3d90824ee6c8cad2a1f.ctex"
+uid="uid://kgnbw6n0e6a8"
+path="res://.godot/imported/oVWwge_7.png-af0fdc504921859847a031ba7bba4f67.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "712b092acc64a2c3b02e7f1b730dc5b0"
+"md5": "b5cfa9d6c8febd618f91ac2843d50a1c"
 }
 
 [deps]
 
-source_file="res://assets/plane/oVWwge_9.png"
-dest_files=["res://.godot/imported/oVWwge_9.png-306e90e88883c3d90824ee6c8cad2a1f.ctex"]
+source_file="res://assets/plane/textures/oVWwge_7.png"
+dest_files=["res://.godot/imported/oVWwge_7.png-af0fdc504921859847a031ba7bba4f67.ctex"]
 
 [params]
 

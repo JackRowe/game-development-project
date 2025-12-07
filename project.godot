@@ -15,10 +15,6 @@ run/main_scene="uid://samwpjnqbsnp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-Physics="*res://scripts/physics.gd"
-
 [display]
 
 window/size/viewport_width=1440

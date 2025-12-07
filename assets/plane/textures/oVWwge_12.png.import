@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://of53ocfv4ghn"
-path.s3tc="res://.godot/imported/oVWwge_11.png-80a180ebd6a45db7791b16e9a1640288.s3tc.ctex"
+uid="uid://dju7c7fwlrbvp"
+path.s3tc="res://.godot/imported/oVWwge_12.png-455ea64a7f6d918d93c19f6342be322f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "f2019841e40d21eb37b099575bda2fbe"
+"md5": "c19dd8c723a4aaf8562dc53b511855fc"
 }
 
 [deps]
 
-source_file="res://assets/plane/oVWwge_11.png"
-dest_files=["res://.godot/imported/oVWwge_11.png-80a180ebd6a45db7791b16e9a1640288.s3tc.ctex"]
+source_file="res://assets/plane/textures/oVWwge_12.png"
+dest_files=["res://.godot/imported/oVWwge_12.png-455ea64a7f6d918d93c19f6342be322f.s3tc.ctex"]
 
 [params]
 
@@ -25,12 +25,12 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://oVWwge_12.png"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

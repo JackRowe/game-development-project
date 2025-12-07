@@ -1,4 +1,4 @@
-extends RigidBody3D
+extends Node
 
 @export var thrustValue: float = 0 # 0 - 100
 @export var pitchValue: float = 0 # -1 - 1 

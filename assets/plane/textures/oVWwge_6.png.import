@@ -2,24 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsunsoknqan64"
-path.s3tc="res://.godot/imported/oVWwge_8.png-2fe496a06cf8595700c8beff38c7434a.s3tc.ctex"
+uid="uid://d4b3jx6o3w5a0"
+path="res://.godot/imported/oVWwge_6.png-4ffc1875bd3d70ed44d4b666d6dcf322.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
-"md5": "b4c969feb170c931603bbd35047f9676"
+"md5": "b6e43dd8137a60a35b0589c0b8100343"
 }
 
 [deps]
 
-source_file="res://assets/plane/oVWwge_8.png"
-dest_files=["res://.godot/imported/oVWwge_8.png-2fe496a06cf8595700c8beff38c7434a.s3tc.ctex"]
+source_file="res://assets/plane/textures/oVWwge_6.png"
+dest_files=["res://.godot/imported/oVWwge_6.png-4ffc1875bd3d70ed44d4b666d6dcf322.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -41,4 +40,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
