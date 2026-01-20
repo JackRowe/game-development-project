@@ -20,8 +20,8 @@ script = ExtResource("1_a3fk4")
 [node name="Body" type="RigidBody3D" parent="."]
 physics_material_override = ExtResource("1_um401")
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0.5, 1)
-inertia = Vector3(0, 0.5, 1)
+center_of_mass = Vector3(0, 0.5, 0.5)
+inertia = Vector3(0, 0.5, 0.5)
 continuous_cd = true
 
 [node name="Aircraft" parent="Body" instance=ExtResource("1_60fnl")]
@@ -47,29 +47,27 @@ shape = SubResource("BoxShape3D_e06ql")
 [node name="WingRightFlap" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.65, 0.5)
 script = ExtResource("7_16uoy")
-area = 8.0
-lift_coefficient = 0.3
+area = 12.0
 drag_coefficient = 0.4
 
 [node name="WingRightAileron" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.7, 0.5)
 script = ExtResource("7_16uoy")
-area = 2.0
-lift_coefficient = 0.4
+area = 4.0
+lift_coefficient = 0.6
 drag_coefficient = 0.04
 
 [node name="WingLeftFlag" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.65, 0.5)
 script = ExtResource("7_16uoy")
-area = 8.0
-lift_coefficient = 0.3
+area = 12.0
 drag_coefficient = 0.04
 
 [node name="WingLeftAileron" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0.7, 0.5)
 script = ExtResource("7_16uoy")
-area = 2.0
-lift_coefficient = 0.4
+area = 4.0
+lift_coefficient = 0.6
 drag_coefficient = 0.04
 
 [node name="Rudder" type="Node3D" parent="Surfaces"]
@@ -79,10 +77,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65000004, -1.1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.45000005, -0.95000005)
 script = ExtResource("7_16uoy")
 area = 3.0
-lift_coefficient = 0.4
+lift_coefficient = 0.6
 
 [node name="LeftElevator" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.45000005, -0.95000005)
 script = ExtResource("7_16uoy")
 area = 3.0
-lift_coefficient = 0.4
+lift_coefficient = 0.6
