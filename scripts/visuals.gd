@@ -28,22 +28,23 @@ func animateAilerons(_delta: float) -> void:
 	var leftIdlePose: Transform3D = skeleton.get_bone_rest(aileronLeftBone)
 	var rightIdlePose: Transform3D = skeleton.get_bone_rest(aileronRightBone)
 	
-	#var angleLeft = Physics.GetControlSurfaceAngle("LeftAileron", -input.rollValue, true)
-	#var angleRight = Physics.GetControlSurfaceAngle("RightAileron", input.rollValue, true)
+	var max_angle = deg_to_rad(25.0)
+	var angleLeft  = -input.rollValue * max_angle
+	var angleRight =  input.rollValue * max_angle
 	
-	#var rotationLeft = Basis.from_euler(Vector3(angleLeft, 0, 0))
-	#var rotationRight = Basis.from_euler(Vector3(angleRight, 0, 0))
+	var rotationLeft = Basis.from_euler(Vector3(angleLeft, 0, 0))
+	var rotationRight = Basis.from_euler(Vector3(angleRight, 0, 0))
 	
-	#skeleton.set_bone_pose(aileronLeftBone, Transform3D(leftIdlePose.basis * rotationLeft, leftIdlePose.origin))
-	#skeleton.set_bone_pose(aileronRightBone, Transform3D(rightIdlePose.basis * rotationRight, rightIdlePose.origin))
+	skeleton.set_bone_pose(aileronLeftBone, Transform3D(leftIdlePose.basis * rotationLeft, leftIdlePose.origin))
+	skeleton.set_bone_pose(aileronRightBone, Transform3D(rightIdlePose.basis * rotationRight, rightIdlePose.origin))
 
 func animateElevator(_delta: float) -> void:
 	var elevatorBone := skeleton.find_bone("Elevator")
 	if(elevatorBone == -1): return
 	var idlePose: Transform3D = skeleton.get_bone_rest(elevatorBone)
 	
-	#var rotation = Basis.from_euler(Vector3(Physics.GetControlSurfaceAngle("Elevator", input.pitchValue, true), 0, 0))
-	#skeleton.set_bone_pose(elevatorBone, Transform3D(idlePose.basis * rotation, idlePose.origin))
+	var rotation = Basis.from_euler(Vector3(input.pitchValue * deg_to_rad(25.0), 0, 0))
+	skeleton.set_bone_pose(elevatorBone, Transform3D(idlePose.basis * rotation, idlePose.origin))
 
 func animateFlaps(_delta: float) -> void:
 	pass

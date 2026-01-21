@@ -9,11 +9,10 @@ extends Node3D
 
 func _physics_process(_delta: float) -> void:
 	# engine
-	var force = global_transform.basis.z * (input.thrustValue * 100)
+	var force = body.global_transform.basis.z * (input.thrustValue * 100)
 	var torque = Vector3(0.0, 0.0, 0.5 / 1000.0).cross(force)
 	
 	for surface in surfaces.get_children():
-		if(surface.name == "Rudder"): continue
 		var result = surface.calculate_forces()
 		force += result[0]
 		torque += result[1]

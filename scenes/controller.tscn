@@ -21,9 +21,10 @@ script = ExtResource("1_a3fk4")
 [node name="Body" type="RigidBody3D" parent="."]
 physics_material_override = ExtResource("1_um401")
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0.5, 1)
-inertia = Vector3(0, 0.5, 1)
+center_of_mass = Vector3(0, 0.5, 1.1)
+inertia = Vector3(0, 0.5, 1.1)
 continuous_cd = true
+angular_damp = 1.0
 
 [node name="Surfaces" type="Node" parent="Body"]
 
@@ -33,6 +34,8 @@ script = ExtResource("7_16uoy")
 surface_area = 8.0
 lift_coefficient = 1.2
 drag_coefficient = 0.08
+max_deflection = 25.0
+controlMethod = 2
 
 [node name="WingRightAileron" type="Node3D" parent="Body/Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.7, 0.5)
@@ -40,13 +43,18 @@ script = ExtResource("7_16uoy")
 surface_area = 2.0
 lift_coefficient = 0.8
 drag_coefficient = 0.06
+max_deflection = 25.0
+controlMethod = 2
 
-[node name="WingLeftFlag" type="Node3D" parent="Body/Surfaces"]
+[node name="WingLeftFlap" type="Node3D" parent="Body/Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.65, 0.5)
 script = ExtResource("7_16uoy")
 surface_area = 8.0
 lift_coefficient = 1.2
 drag_coefficient = 0.08
+max_deflection = 25.0
+controlMethod = 2
+inverted = true
 
 [node name="WingLeftAileron" type="Node3D" parent="Body/Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0.7, 0.5)
@@ -54,21 +62,30 @@ script = ExtResource("7_16uoy")
 surface_area = 2.0
 lift_coefficient = 0.8
 drag_coefficient = 0.06
+max_deflection = 25.0
+controlMethod = 2
+inverted = true
 
 [node name="Rudder" type="Node3D" parent="Body/Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65000004, -1.1)
+script = ExtResource("7_16uoy")
+controlMethod = 3
 
 [node name="RightElevator" type="Node3D" parent="Body/Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.45000005, -0.95000005)
 script = ExtResource("7_16uoy")
 surface_area = 2.5
 lift_coefficient = 0.7
+max_deflection = 25.0
+controlMethod = 1
 
 [node name="LeftElevator" type="Node3D" parent="Body/Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.45000005, -0.95000005)
 script = ExtResource("7_16uoy")
 surface_area = 2.5
 lift_coefficient = 0.7
+max_deflection = 25.0
+controlMethod = 1
 
 [node name="Aircraft" parent="Body" instance=ExtResource("1_60fnl")]
 script = ExtResource("5_vx3wb")

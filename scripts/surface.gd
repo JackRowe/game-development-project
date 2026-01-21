@@ -7,11 +7,21 @@ var input: Node
 @export var lift_coefficient: float = 0.5
 @export var drag_coefficient: float = 0.05
 
+@export var deflection: float = 0.0
+@export var max_deflection: float = 0.0
+enum ControlMethod { NONE, PITCH, ROLL, YAW }
+@export var controlMethod: ControlMethod = ControlMethod.NONE
+@export var inverted = false
+
+
 var air_density: float = 1.225
 
 func _ready() -> void:
 	body = get_parent().get_parent()
 	input = body.get_parent().find_child("Input")
+
+# TODO! 
+# torque
 
 func calculate_forces() -> PackedVector3Array:
 	if not body:
@@ -20,11 +30,21 @@ func calculate_forces() -> PackedVector3Array:
 	var force = Vector3.ZERO
 	var torque = Vector3.ZERO
 	
-	var localVelocity = global_transform.basis.inverse() * body.linear_velocity
-	var velocitySquared = localVelocity * localVelocity
+	var localVelocity = body.global_transform.basis.inverse() * body.linear_velocity
+	var speed = localVelocity.z * localVelocity.z #local_velocity.dot(global_transform.basis.x) * body.linear_velocity.dot(global_transform.basis.x)
 	
-	var magnitude = 0.5 * air_density * velocitySquared * surface_area * lift_coefficient
-	var direction = global_transform.basis.y
-	force = direction * magnitude.length()
+	# lift
+	var magnitude = 0.5 * air_density * speed * surface_area * lift_coefficient
+	var direction = body.basis.y
+	force = direction * magnitude
+	
+	# drag
+	magnitude = 0.5 * air_density * body.linear_velocity.length_squared() * surface_area * drag_coefficient
+	direction = -direction
+	force += direction * magnitude
+	
+	# torque
+	var arm = position + body.position - body.position
+	torque = arm.cross(force)
 	
 	return PackedVector3Array([force, torque])
