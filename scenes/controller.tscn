@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://jm200m3uf71g"]
+[gd_scene load_steps=10 format=3 uid="uid://jm200m3uf71g"]
 
 [ext_resource type="PackedScene" uid="uid://bjkyesjlweh5t" path="res://scenes/cessna_172.tscn" id="1_60fnl"]
 [ext_resource type="Script" uid="uid://cplt4p6bow37g" path="res://scripts/input.gd" id="1_a3fk4"]
@@ -6,6 +6,7 @@
 [ext_resource type="PhysicsMaterial" uid="uid://cnuwocqm8ali2" path="res://assets/plane/material/body.tres" id="1_um401"]
 [ext_resource type="Script" uid="uid://d0wu7xos1fjr" path="res://scripts/visuals.gd" id="5_vx3wb"]
 [ext_resource type="Script" uid="uid://02fn8xvj0dbl" path="res://scripts/surface.gd" id="7_16uoy"]
+[ext_resource type="PackedScene" uid="uid://b3do4oo3c53g5" path="res://scenes/gui.tscn" id="7_kbhpp"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_a3fk4"]
 
@@ -24,6 +25,51 @@ center_of_mass = Vector3(0, 0.5, 1)
 inertia = Vector3(0, 0.5, 1)
 continuous_cd = true
 
+[node name="Surfaces" type="Node" parent="Body"]
+
+[node name="WingRightFlap" type="Node3D" parent="Body/Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.65, 0.5)
+script = ExtResource("7_16uoy")
+surface_area = 8.0
+lift_coefficient = 1.2
+drag_coefficient = 0.08
+
+[node name="WingRightAileron" type="Node3D" parent="Body/Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.7, 0.5)
+script = ExtResource("7_16uoy")
+surface_area = 2.0
+lift_coefficient = 0.8
+drag_coefficient = 0.06
+
+[node name="WingLeftFlag" type="Node3D" parent="Body/Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.65, 0.5)
+script = ExtResource("7_16uoy")
+surface_area = 8.0
+lift_coefficient = 1.2
+drag_coefficient = 0.08
+
+[node name="WingLeftAileron" type="Node3D" parent="Body/Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0.7, 0.5)
+script = ExtResource("7_16uoy")
+surface_area = 2.0
+lift_coefficient = 0.8
+drag_coefficient = 0.06
+
+[node name="Rudder" type="Node3D" parent="Body/Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65000004, -1.1)
+
+[node name="RightElevator" type="Node3D" parent="Body/Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.45000005, -0.95000005)
+script = ExtResource("7_16uoy")
+surface_area = 2.5
+lift_coefficient = 0.7
+
+[node name="LeftElevator" type="Node3D" parent="Body/Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.45000005, -0.95000005)
+script = ExtResource("7_16uoy")
+surface_area = 2.5
+lift_coefficient = 0.7
+
 [node name="Aircraft" parent="Body" instance=ExtResource("1_60fnl")]
 script = ExtResource("5_vx3wb")
 
@@ -34,6 +80,8 @@ spring_length = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="Body/Aircraft/SpringArm3D"]
 
+[node name="Gui" parent="Body/Aircraft/SpringArm3D/Camera3D" instance=ExtResource("7_kbhpp")]
+
 [node name="BodyCollider" type="CollisionShape3D" parent="Body"]
 transform = Transform3D(0.375, 0, 0, 0, 0.5, 0, 0, 0, 2.5, 0, 0.425, 0)
 shape = SubResource("BoxShape3D_e06ql")
@@ -41,48 +89,3 @@ shape = SubResource("BoxShape3D_e06ql")
 [node name="WingCollider" type="CollisionShape3D" parent="Body"]
 transform = Transform3D(3.7, 0, 0, 0, 0.1, 0, 0, 0, 0.5, 0, 0.675, 0.4)
 shape = SubResource("BoxShape3D_e06ql")
-
-[node name="Surfaces" type="Node" parent="."]
-
-[node name="WingRightFlap" type="Node3D" parent="Surfaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.65, 0.5)
-script = ExtResource("7_16uoy")
-area = 8.0
-lift_coefficient = 0.3
-drag_coefficient = 0.4
-
-[node name="WingRightAileron" type="Node3D" parent="Surfaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.7, 0.5)
-script = ExtResource("7_16uoy")
-area = 2.0
-lift_coefficient = 0.4
-drag_coefficient = 0.04
-
-[node name="WingLeftFlag" type="Node3D" parent="Surfaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.65, 0.5)
-script = ExtResource("7_16uoy")
-area = 8.0
-lift_coefficient = 0.3
-drag_coefficient = 0.04
-
-[node name="WingLeftAileron" type="Node3D" parent="Surfaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0.7, 0.5)
-script = ExtResource("7_16uoy")
-area = 2.0
-lift_coefficient = 0.4
-drag_coefficient = 0.04
-
-[node name="Rudder" type="Node3D" parent="Surfaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65000004, -1.1)
-
-[node name="RightElevator" type="Node3D" parent="Surfaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.45000005, -0.95000005)
-script = ExtResource("7_16uoy")
-area = 3.0
-lift_coefficient = 0.4
-
-[node name="LeftElevator" type="Node3D" parent="Surfaces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.45000005, -0.95000005)
-script = ExtResource("7_16uoy")
-area = 3.0
-lift_coefficient = 0.4
