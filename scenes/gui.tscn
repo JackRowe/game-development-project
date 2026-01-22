@@ -39,7 +39,3 @@ text = "Velocity:"
 [node name="Torque" type="Label" parent="List"]
 layout_mode = 2
 text = "Velocity:"
-
-[node name="Thrust" type="Label" parent="List"]
-layout_mode = 2
-text = "Velocity:"

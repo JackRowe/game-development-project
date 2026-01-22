@@ -85,7 +85,6 @@ func calculate_forces() -> PackedVector3Array:
 	var magnitude = 0.5 * air_density * speed * surface_area * coefficient
 	var direction = body.basis.y
 	force = direction * magnitude
-	if(name == "RightElevator"): print(force)
 	
 	# drag
 	coefficient = calculate_drag_coefficient(aoa, coefficient)
