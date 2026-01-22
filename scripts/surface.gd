@@ -83,16 +83,19 @@ func calculate_forces() -> PackedVector3Array:
 	# lift 
 	var coefficient = calculate_lift_coefficient(aoa)
 	var magnitude = 0.5 * air_density * speed * surface_area * coefficient
-	var direction = body.basis.y
+	var airflow = -body.linear_velocity.normalized()
+	var span = global_transform.basis.x   # hinge line / wingspan direction
+	var lift_dir = airflow.cross(span).normalized()
+	var direction = lift_dir
 	force = direction * magnitude
 	
 	# drag
 	coefficient = calculate_drag_coefficient(aoa, coefficient)
 	magnitude = 0.5 * air_density * speed * surface_area * coefficient
-	direction = -body.linear_velocity.normalized()
+	direction = airflow
 	force += direction * magnitude
 	
 	# torque
-	#torque = position.cross(force)
+	torque = position.cross(force)
 	
 	return PackedVector3Array([force, torque])
