@@ -89,10 +89,10 @@ func calculate_forces() -> PackedVector3Array:
 	# drag
 	coefficient = calculate_drag_coefficient(aoa, coefficient)
 	magnitude = 0.5 * air_density * speed * surface_area * coefficient
-	direction = -body.basis.z
+	direction = -body.linear_velocity.normalized()
 	force += direction * magnitude
 	
 	# torque
-	torque = position.cross(force)
+	#torque = position.cross(force)
 	
 	return PackedVector3Array([force, torque])

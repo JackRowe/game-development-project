@@ -27,19 +27,17 @@ script = ExtResource("1_xjc5m")
 [node name="WingRightFlap" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.65, 0.5)
 script = ExtResource("1_dfqia")
-surface_area = 2.5
-lift_coefficient = 1.2
-drag_coefficient = 0.02
-zero_lift_aoa = -2.0
+surface_area = 4.0
+lift_coefficient = 0.0
+lift_slope = 5.0
 max_deflection = 25.0
 
 [node name="WingRightAileron" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 0.7, 0.5)
 script = ExtResource("1_dfqia")
-surface_area = 0.8
-lift_coefficient = 0.8
-drag_coefficient = 0.025
-zero_lift_aoa = -2.0
+surface_area = 4.0
+lift_coefficient = 0.0
+lift_slope = 5.0
 max_deflection = 20.0
 control_method = 2
 inverted = true
@@ -47,38 +45,38 @@ inverted = true
 [node name="WingLeftFlap" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.65, 0.5)
 script = ExtResource("1_dfqia")
-surface_area = 2.5
-lift_coefficient = 1.2
-drag_coefficient = 0.02
-zero_lift_aoa = -2.0
+surface_area = 4.0
+lift_coefficient = 0.0
+lift_slope = 5.0
 max_deflection = 25.0
 
 [node name="WingLeftAileron" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 0.7, 0.5)
 script = ExtResource("1_dfqia")
-surface_area = 0.8
-lift_coefficient = 0.8
-drag_coefficient = 0.025
-zero_lift_aoa = -2.0
+surface_area = 4.0
+lift_coefficient = 0.0
+lift_slope = 5.0
 max_deflection = 20.0
 control_method = 2
 
 [node name="Rudder" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65000004, -1.1)
 script = ExtResource("1_dfqia")
-lift_slope = 4.0
-stall_angle = 20.0
+surface_area = 0.0
+lift_coefficient = 0.0
+drag_coefficient = 0.0
+lift_slope = 0.0
+stall_angle = 0.0
 control_method = 3
 
 [node name="RightElevator" type="Node3D" parent="Surfaces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.45000005, -0.95000005)
 script = ExtResource("1_dfqia")
 surface_area = 2.0
-lift_coefficient = 0.7
-drag_coefficient = 0.025
-lift_slope = 4.5
+lift_coefficient = 0.0
+drag_coefficient = 0.0
+lift_slope = 5.0
 max_deflection = 25.0
-trim = -8.0
 control_method = 1
 inverted = true
 
@@ -86,11 +84,10 @@ inverted = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.45000005, -0.95000005)
 script = ExtResource("1_dfqia")
 surface_area = 2.0
-lift_coefficient = 0.7
-drag_coefficient = 0.025
-lift_slope = 4.5
+lift_coefficient = 0.0
+drag_coefficient = 0.0
+lift_slope = 5.0
 max_deflection = 25.0
-trim = -8.0
 control_method = 1
 inverted = true
 

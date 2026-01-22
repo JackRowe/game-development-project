@@ -6,10 +6,13 @@ extends RigidBody3D
 @export var lastForce = Vector3.ZERO
 @export var lastTorque = Vector3.ZERO
 
+# TODO
+# add fuselage drag
+
 func _physics_process(_delta: float) -> void:
 	# engine
-	var force = global_transform.basis.z * (input.thrustValue * 100)
-	var torque = Vector3(0.0, 0.0, 0.5 / 1000.0).cross(force)
+	var force = global_transform.basis.z * (input.thrustValue * 200)
+	var torque = Vector3.ZERO
 	
 	for surface in surfaces.get_children():
 		if(surface.name == "Rudder"): continue
