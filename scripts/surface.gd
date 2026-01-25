@@ -29,8 +29,6 @@ func _physics_process(_delta: float) -> void:
 	update_deflection()
 
 # TODO!
-# control surfaces
-# fix torque?
 
 func update_deflection() -> void:
 	if not input or max_deflection == 0.0 or control_method == ControlMethod.NONE: return
@@ -52,18 +50,10 @@ func update_deflection() -> void:
 	deflection = value * max_deflection
 
 func calculate_lift_coefficient(aoa: float) -> float:
-	var aoaFromZero = aoa - zero_lift_aoa
-	if(abs(aoaFromZero) < stall_angle): return lift_slope * deg_to_rad(aoaFromZero)
-	
-	var signed = 1.0 if aoaFromZero > 0 else -1.0
-	var stall = lift_slope * deg_to_rad(stall_angle)
-	return signed * stall * (exp(-abs(aoaFromZero - stall_angle) / 10.0))
+	return 0.0
 
 func calculate_drag_coefficient(aoa: float, cl: float) -> float:
-	var induced = cl * cl / (PI * 6.0) # should be aspect ratio but whatever for now
-	var additional = abs(sin(deg_to_rad(aoa)) * 0.5)
-	
-	return drag_coefficient + induced + additional
+	return 0.0
 
 func calculate_forces() -> PackedVector3Array:
 	if not body:
@@ -71,35 +61,5 @@ func calculate_forces() -> PackedVector3Array:
 	
 	var force = Vector3.ZERO
 	var torque = Vector3.ZERO
-	
-	var localVelocity = body.global_transform.basis.inverse() * body.linear_velocity
-	var speed = localVelocity.length_squared()
-	
-	# Calculate world air velocity and drag direction
-	var world_air_velocity = -body.linear_velocity  # Air velocity relative to body
-	var drag_direction = world_air_velocity.normalized()
-	
-	# aoa
-	var aoa = rad_to_deg(global_basis.y.angle_to(-world_air_velocity) - (PI / 2.0))
-	aoa += deflection + trim
-	
-	# lift - calculate proper lift direction
-	var coefficient = calculate_lift_coefficient(aoa)
-	var magnitude = 0.5 * air_density * speed * surface_area * coefficient
-	var right_facing_air_vector = world_air_velocity.cross(-global_transform.basis.y).normalized()
-	var lift_direction = drag_direction.cross(right_facing_air_vector).normalized()
-	force = lift_direction * magnitude
-	
-	# drag
-	coefficient = calculate_drag_coefficient(aoa, coefficient)
-	magnitude = 0.5 * air_density * speed * surface_area * coefficient
-	force += drag_direction * magnitude
-	
-	# torque
-	torque = position.cross(force)
-	if(name == "LeftElevator" || name == "RightElevator"):
-		torque *= Vector3(-1, 1, 1)
-	
-	force *= Vector3(1, 1, 1)
 	
 	return PackedVector3Array([force, torque])
