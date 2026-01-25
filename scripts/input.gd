@@ -18,6 +18,6 @@ func _input(_event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	thrustValue = clamp(thrustValue + ((thrustState * delta) * 25.0), 0.0, 100.0)
-	pitchValue = lerp(pitchValue, pitchState, delta * 5.0)
-	rollValue = lerp(rollValue, rollState, delta * 5.0)
-	yawValue = lerp(yawValue, yawState, delta * 5.0)
+	pitchValue =  clamp(pitchValue + ((pitchState * delta) * 1.0), -1.0, 1.0)
+	rollValue =  clamp(rollValue + ((rollState * delta) * 1.0), -1.0, 1.0)
+	yawValue =  clamp(yawValue + ((yawState * delta) * 1.0), -1.0, 1.0)

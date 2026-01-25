@@ -75,27 +75,31 @@ func calculate_forces() -> PackedVector3Array:
 	var localVelocity = body.global_transform.basis.inverse() * body.linear_velocity
 	var speed = localVelocity.length_squared()
 	
+	# Calculate world air velocity and drag direction
+	var world_air_velocity = -body.linear_velocity  # Air velocity relative to body
+	var drag_direction = world_air_velocity.normalized()
+	
 	# aoa
-	var aoa = rad_to_deg(atan2(-localVelocity.y, localVelocity.z))
-	if(localVelocity.length() <= 0.01): aoa = 0.0
+	var aoa = rad_to_deg(global_basis.y.angle_to(-world_air_velocity) - (PI / 2.0))
 	aoa += deflection + trim
 	
-	# lift 
+	# lift - calculate proper lift direction
 	var coefficient = calculate_lift_coefficient(aoa)
 	var magnitude = 0.5 * air_density * speed * surface_area * coefficient
-	var airflow = -body.linear_velocity.normalized()
-	var span = global_transform.basis.x   # hinge line / wingspan direction
-	var lift_dir = airflow.cross(span).normalized()
-	var direction = lift_dir
-	force = direction * magnitude
+	var right_facing_air_vector = world_air_velocity.cross(-global_transform.basis.y).normalized()
+	var lift_direction = drag_direction.cross(right_facing_air_vector).normalized()
+	force = lift_direction * magnitude
 	
 	# drag
 	coefficient = calculate_drag_coefficient(aoa, coefficient)
 	magnitude = 0.5 * air_density * speed * surface_area * coefficient
-	direction = airflow
-	force += direction * magnitude
+	force += drag_direction * magnitude
 	
 	# torque
 	torque = position.cross(force)
+	if(name == "LeftElevator" || name == "RightElevator"):
+		torque *= Vector3(-1, 1, 1)
+	
+	force *= Vector3(1, 1, 1)
 	
 	return PackedVector3Array([force, torque])

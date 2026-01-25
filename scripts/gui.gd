@@ -6,9 +6,9 @@ extends Control
 
 func snap_vec(v: Vector3) -> Vector3:
 	return Vector3(
-		snapped(v.x, 0.01),
-		snapped(v.y, 0.01),
-		snapped(v.z, 0.01)
+		snapped(v.x, 0.001),
+		snapped(v.y, 0.001),
+		snapped(v.z, 0.001)
 	)
 
 

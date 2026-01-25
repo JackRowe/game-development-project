@@ -11,7 +11,7 @@ extends RigidBody3D
 
 func _physics_process(_delta: float) -> void:
 	# engine
-	var force = global_transform.basis.z * (input.thrustValue * 100)
+	var force = global_transform.basis.z * (input.thrustValue * 200)
 	var torque = Vector3.ZERO
 	
 	for surface in surfaces.get_children():
@@ -19,6 +19,8 @@ func _physics_process(_delta: float) -> void:
 		var result = surface.calculate_forces()
 		force += result[0]
 		torque += result[1]
+	
+	force = global_transform.basis * force
 	
 	lastForce = Vector3(force.x / 1000.0, force.y / 1000.0, force.z / 1000.0)
 	lastTorque = Vector3(torque.x / 1000.0, torque.y / 1000.0, torque.z / 1000.0)
