@@ -4,12 +4,13 @@ var body: RigidBody3D
 var input: Node
 
 @export_category("aerodynamic properties")
-@export var surface_area: float = 1.0
-@export var lift_coefficient: float = 0.5
-@export var drag_coefficient: float = 0.05
-@export var lift_slope: float = 2.0 * PI
-@export var stall_angle: float = 15.0
-@export var zero_lift_aoa: float = 0.0
+@export_range(0.0, 100.0, 0.001, "suffix: m2") var surface_area: float = 1.0
+@export var lift_curve: Curve = preload("res://curves/lift_curve.tres")
+@export var drg_curve: Curve = preload("res://curves/drag_curve.tres")
+@export_range(-100.0, 0.0, 0.001, "or_greater", "exp", "suffix:cl") var min_lift_coefficient = -1.6
+@export_range(0.0, 100.0, 0.001, "or_greater", "exp", "suffix:cl") var max_lift_coefficient = 1.6
+@export_range(0.0, 190.0, 0.001, "or_greater", "exp", "suffix:cd") var min_drag_coefficient = 0.02
+@export_range(0.0, 100.0, 0.001, "or_greater", "exp", "suffix:cd") var max_drag_coefficient = 0.8
 
 @export_category("input properties")
 @export var deflection: float = 0.0
@@ -50,10 +51,18 @@ func update_deflection() -> void:
 	deflection = value * max_deflection
 
 func calculate_lift_coefficient(aoa: float) -> float:
-	return 0.0
+	var sample: float = lift_curve.sample_baked(
+		remap(aoa, -PI, PI, lift_curve.min_domain, lift_curve.max_domain)
+	)
+	
+	if sign(sample) == 1.0: return sample * (max_lift_coefficient / lift_curve.max_value)
+	return sample * (abs(min_lift_coefficient) / abs(lift_curve.min_value))
 
-func calculate_drag_coefficient(aoa: float, cl: float) -> float:
-	return 0.0
+func calculate_drag_coefficient(aoa: float) -> float:
+	var sample: float = drg_curve.sample_baked(
+		remap(aoa, -PI, PI, drg_curve.min_domain, drg_curve.max_domain)
+	)
+	return remap(sample, drg_curve.min_value, drg_curve.max_value, min_drag_coefficient, max_drag_coefficient)
 
 func calculate_forces() -> PackedVector3Array:
 	if not body:
@@ -61,5 +70,24 @@ func calculate_forces() -> PackedVector3Array:
 	
 	var force = Vector3.ZERO
 	var torque = Vector3.ZERO
+	
+	var vel = body.get_linear_velocity()
+	var speed = vel.length()
+	var pressure = 0.5 * air_density * speed * speed
+	
+	var aoa = global_basis.y.angle_to(-vel) - (PI / 2.0)
+	
+	var cl = calculate_lift_coefficient(aoa)
+	var cd = calculate_drag_coefficient(aoa)
+	
+	var dragDirection = -vel.normalized()
+	var dragMagnitude = (pressure * surface_area * cd)
+	force += dragMagnitude * dragDirection
+	
+	var liftMagnitude = pressure * surface_area * cl 
+	var liftDirection = dragDirection.cross(-vel.cross(global_transform.basis.y).normalized()).normalized()
+	force += liftMagnitude * liftDirection
+	
+	torque = position.cross(force)
 	
 	return PackedVector3Array([force, torque])

@@ -66,7 +66,7 @@ NegativeYaw={
 [physics]
 
 3d/run_on_separate_thread=true
-common/physics_ticks_per_second=480
-common/max_physics_steps_per_frame=64
+common/physics_ticks_per_second=600
+common/max_physics_steps_per_frame=80
 3d/physics_engine="Jolt Physics"
 common/physics_interpolation=true
