@@ -39,3 +39,28 @@ text = "Velocity:"
 [node name="Torque" type="Label" parent="List"]
 layout_mode = 2
 text = "Velocity:"
+
+[node name="Speed" type="Label" parent="List"]
+layout_mode = 2
+text = "Velocity:"
+
+[node name="List2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_bottom = 185.0
+grow_horizontal = 0
+
+[node name="Airspeed" type="Label" parent="List2"]
+layout_mode = 2
+text = "Position: "
+
+[node name="Altitude" type="Label" parent="List2"]
+layout_mode = 2
+text = "Position: "
+
+[node name="Angle" type="Label" parent="List2"]
+layout_mode = 2
+text = "Position: "

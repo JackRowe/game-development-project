@@ -1,6 +1,6 @@
 extends Node
 
-@export var thrustValue: float = 0 # 0 - 100
+@export var thrustValue: float = 100 # 0 - 100
 @export var pitchValue: float = 0 # -1 - 1 
 @export var rollValue: float = 0 # -1 - 1 
 @export var yawValue: float = 0 # -1 - 1 

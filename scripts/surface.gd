@@ -76,17 +76,22 @@ func calculate_forces() -> PackedVector3Array:
 	var pressure = 0.5 * air_density * speed * speed
 	
 	var aoa = global_basis.y.angle_to(-vel) - (PI / 2.0)
+	aoa += deg_to_rad(deflection + trim)
 	
 	var cl = calculate_lift_coefficient(aoa)
 	var cd = calculate_drag_coefficient(aoa)
 	
 	var dragDirection = -vel.normalized()
-	var dragMagnitude = (pressure * surface_area * cd)
-	force += dragMagnitude * dragDirection
 	
 	var liftMagnitude = pressure * surface_area * cl 
 	var liftDirection = dragDirection.cross(-vel.cross(global_transform.basis.y).normalized()).normalized()
+	var liftForce = (liftMagnitude * liftDirection)
 	force += liftMagnitude * liftDirection
+	
+	var dragMagnitude = (pressure * surface_area * cd)
+	force += dragMagnitude * dragDirection
+	# TODO: add induced drag as well
+	#force += (liftMagnitude * liftDirection) * (liftMagnitude * liftDirection)
 	
 	torque = position.cross(force)
 	
